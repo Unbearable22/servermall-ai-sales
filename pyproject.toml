@@ -7,3 +7,11 @@ dependencies = ["fastapi>=0.110,<1", "uvicorn>=0.29,<1", "pydantic>=2,<3", "sqla
 dev = ["pytest>=8,<10", "httpx>=0.27,<1", "ruff>=0.6,<1", "pytest-asyncio>=0.24,<2"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["app", "app.*"]
+exclude = ["prompts", "prompts.*", "tests", "tests.*", "docs", "docs.*"]
