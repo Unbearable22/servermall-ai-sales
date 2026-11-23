@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: sales
+      POSTGRES_USER: sales
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  api:
+    build: .
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://sales:${POSTGRES_PASSWORD}@db:5432/sales
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      - db
+volumes:
+  pgdata:
